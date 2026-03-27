@@ -1,8 +1,7 @@
 package evaluator;
-
 import parsar.Expression;
-
 import java.util.List;
+
 
 public class IfInstruction implements Instruction{
     // Store: the condition expression and a List<Instruction> for the body.
