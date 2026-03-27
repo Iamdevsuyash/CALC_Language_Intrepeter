@@ -1,16 +1,21 @@
 package parsar;
 
+import evaluator.Instruction;
+
+import java.util.List;
+
 public class Parser {
     // Store: the token list and a current index tracking which token
     // you are looking at right now.
 
-    public Parser(List<Token> tokens) {
-        // Store the token list.
-    }
+//    public Parser(List<Token> tokens) {
+//        // Store the token list.
+//    }
 
     public List<Instruction> parse() {
         // Read through tokens and build the list of Instructions.
         // Return the completed list.
+        return null;
     }
 
         // You will need several private helper methods here.

@@ -8,7 +8,7 @@ public class RepeatInstruction implements Instruction {
 
     RepeatInstruction(Integer count,List<Instruction> b){
         this.count = count;
-        this.body =b;
+        this.body = b;
     }
     @Override
     public void execute(Environment env) {
