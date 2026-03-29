@@ -34,4 +34,12 @@ public class Tokenizer {
         Map.entry(':', Token.Type.COLON)
     );
 
+    // constructor that takes a string and initializes the tokenizer
+    public Tokenizer(String s) { this.s = s; }
+
+    // method that produces a list of tokens from the input string
+    public List<Token> tokenize() {
+        return tokens;
+    }
+
 }
