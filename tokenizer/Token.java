@@ -1,4 +1,4 @@
-package Tokenizer;
+package tokenizer;
 
 public class Token {
     public enum Type {  
