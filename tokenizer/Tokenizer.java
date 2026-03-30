@@ -39,6 +39,87 @@ public class Tokenizer {
 
     // method that produces a list of tokens from the input string
     public List<Token> tokenize() {
+
+        while (i < s.length()) {
+            char c = s.charAt(i);
+
+            // whitespace
+            if (c == ' ' || c == '\t' || c == '\r') { i++; col++; continue; }
+
+            // newline
+            if (c == '\n') {
+                tokens.add(new Token(Token.Type.NEWLINE, "\n", null, line, col));
+                i++; line++; col = 1;
+                continue;
+            }
+
+            // string
+            if (c == '"') {
+                int start = ++i, startCol = col++;
+                while (i < s.length() && s.charAt(i) != '"') {
+                    if (s.charAt(i) == '\n')
+                        throw new RuntimeException("Unterminated string at line " + line);
+                    i++; col++;
+                }
+                if (i >= s.length())
+                    throw new RuntimeException("Unterminated string at line " + line);
+
+                String val = s.substring(start, i++);
+                tokens.add(new Token(Token.Type.STRING, "\"" + val + "\"", val, line, startCol));
+                col++;
+                continue;
+            }
+
+            // number
+            if (Character.isDigit(c)) {
+                int start = i, startCol = col;
+                while (i < s.length() && Character.isDigit(s.charAt(i))) { i++; col++; }
+
+                if (i < s.length() && s.charAt(i) == '.' &&
+                    i + 1 < s.length() && Character.isDigit(s.charAt(i + 1))) {
+                    i++; col++;
+                    while (i < s.length() && Character.isDigit(s.charAt(i))) { i++; col++; }
+                }
+
+                String val = s.substring(start, i);
+                tokens.add(new Token(Token.Type.NUMBER, val, Double.parseDouble(val), line, startCol));
+                continue;
+            }
+
+            // identifier
+            if (Character.isLetter(c) || c == '_') {
+                int start = i, startCol = col;
+                while (i < s.length() &&
+                      (Character.isLetterOrDigit(s.charAt(i)) || s.charAt(i) == '_')) {
+                    i++; col++;
+                }
+
+                String val = s.substring(start, i);
+                tokens.add(new Token(Token.Type.IDENTIFIER, val, val, line, startCol));
+                continue;
+            }
+
+            // 2-char tokens
+            if (i + 1 < s.length()) {
+                String two = s.substring(i, i + 2);
+                if (twoChar.containsKey(two)) {
+                    tokens.add(new Token(twoChar.get(two), two, null, line, col));
+                    i += 2; col += 2;
+                    continue;
+                }
+            }
+
+            // 1-char tokens
+            if (oneChar.containsKey(c)) {
+                tokens.add(new Token(oneChar.get(c), String.valueOf(c), null, line, col));
+                i++; col++;
+                continue;
+            }
+
+            throw new RuntimeException("Unexpected char: " + c + " at line " + line);
+        }
+
+        tokens.add(new Token(Token.Type.EOF, "", null, line, col));
         return tokens;
     }
 
