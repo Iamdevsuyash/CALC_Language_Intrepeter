@@ -14,13 +14,21 @@ public class BinaryOpNode implements Expression {
         Object rightval = right.evaluate();
 
         if (operator.equals("+")) {
-            return ((Double) leftval) + ((Double) rightval);
+            try{
+                return ((Double) leftval) + ((Double) rightval);
+            }catch(ClassCastException e){
+                return String.valueOf(leftval) + String.valueOf(rightval);
+            }
         } else if (operator.equals("-")) {
             return ((Double) leftval) - ((Double) rightval);
         } else if (operator.equals("*")) {
             return ((Double) leftval) * ((Double) rightval);
         } else if (operator.equals("/")) {
-            return ((Double) leftval) / ((Double) rightval);
+            double rightVal = (Double) rightval;
+            if(rightVal == 0.0){
+                throw new ArithmeticException("Can't divide by zero");
+            }
+            return ((Double) leftval) / rightVal;
         }
         else if (operator.equals(">")) {
             return ((Double) leftval) > ((Double) rightval);

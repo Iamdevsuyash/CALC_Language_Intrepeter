@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+// import tokenizer.Token;
 
 public class Parser{
     private List<Token> tokens;
@@ -10,11 +11,14 @@ public class Parser{
     }
 
     private Token peek() {
+        if(index >= tokens.size()){
+            return tokens.get(tokens.size() - 1);
+        }
         return tokens.get(index);
     }
 
     private boolean isEnd() {
-        return peek().getType() == TokenType.EOF; 
+        return peek().type() == Token.Type.EOF; 
     }
 
     private Token advance(){
@@ -24,14 +28,14 @@ public class Parser{
         return tokens.get(index - 1);
     }
 
-    private boolean check(TokenType type){
+    private boolean check(Token.Type type){
         if(isEnd()){
             return false;
         }
-        return peek().getType() == type;
+        return peek().type() == type;
     }
 
-    private boolean match(TokenType type){
+    private boolean match(Token.Type type){
         if(check(type)){
             advance();
             return true;
@@ -44,36 +48,40 @@ public class Parser{
     public List<Instruction> parse(){
         List<Instruction> instructions = new ArrayList<>();
         while(!isEnd()){
+            if(check(Token.Type.NEWLINE)){
+                advance();
+                continue;
+            }
             instructions.add(parseInstruction());
         }
         return instructions;
     }
 
     private Instruction parseInstruction(){
-        if(check(TokenType.IDENTIFIER)){
+        if(check(Token.Type.IDENTIFIER)){
             advance();
             return parseAssignment();
         }
-        else if(check(TokenType.PRINT)){
+        else if(check(Token.Type.PRINT)){
             advance();
             return parsePrint();
         }
-        else if(check(TokenType.QUESTION)){
+        else if(check(Token.Type.IF)){
             advance();
             return parseIf();
         }
-        else if(check(TokenType.AT)){
+        else if(check(Token.Type.REPEAT)){
             advance();
             return parseRepeat();
         }
         else{
-            throw new RuntimeException("Unexpected token: " + peek().getValue());
+            throw new RuntimeException("Unexpected token: " + peek().lexeme());
         }
     }
 
     private Instruction parseAssignment(){
-        String var = tokens.get(index - 1).getValue();
-        if(!check(TokenType.ASSIGN)){
+        String var = tokens.get(index - 1).lexeme();
+        if(!check(Token.Type.ASSIGN)){
             throw new RuntimeException("Expected ':=' after identifier");
         }
         advance();
@@ -83,10 +91,10 @@ public class Parser{
 
     private Expression parseExpression(){
         Expression left = parseTerm();
-        while(check(TokenType.PLUS) || check(TokenType.MINUS)){
+        while(check(Token.Type.PLUS) || check(Token.Type.MINUS) || check(Token.Type.GT) || check(Token.Type.LT) || check(Token.Type.EQ)){
             Token operator = advance();
             Expression right = parseTerm();
-            BinaryOpNode node = new BinaryOpNode(left, operator.getValue(), right);
+            BinaryOpNode node = new BinaryOpNode(left, operator.lexeme(), right);
             left = node;
         }
         return left;
@@ -94,30 +102,30 @@ public class Parser{
 
     private Expression parseTerm(){
         Expression left = parsePrimary();
-        while(check(TokenType.MULTIPLY) || check(TokenType.DIVIDE)){
+        while(check(Token.Type.MULTIPLY) || check(Token.Type.DIVIDE)){
             Token operator = advance();
             Expression right = parsePrimary();
-            BinaryOpNode node = new BinaryOpNode(left, operator.getValue(), right);
+            BinaryOpNode node = new BinaryOpNode(left, operator.lexeme(), right);
             left = node;
         }
         return left;
     }
 
     private Expression parsePrimary(){
-        if(check(TokenType.NUMBER)){
+        if(check(Token.Type.NUMBER)){
             Token t = advance();
-            return new NumberNode(Double.parseDouble(t.getValue()));
+            return new NumberNode((Double) t.literal());
         }
-        else if(check(TokenType.STRING)){
+        else if(check(Token.Type.STRING)){
             Token t = advance();
-            return new StringNode(t.getValue());
+            return new StringNode((String) t.literal());
         }
-        else if(check(TokenType.IDENTIFIER)){
+        else if(check(Token.Type.IDENTIFIER)){
             Token t = advance();
-            return new VariableNode(t.getValue());
+            return new VariableNode(t.lexeme());
         }
         else{
-            throw new RuntimeException("Unexpected token: " + peek().getValue());
+            throw new RuntimeException("Unexpected token: " + peek().lexeme());
         }
     }
 
@@ -128,7 +136,7 @@ public class Parser{
 
     private Instruction parseIf(){
         Expression condition = parseExpression();
-        if(!check(TokenType.ARROW)){
+        if(!check(Token.Type.ARROW)){
             throw new RuntimeException("Expected '=>' after condition");
         }
         advance();
@@ -139,7 +147,7 @@ public class Parser{
 
     private Instruction parseRepeat(){
         Expression times = parseExpression();
-        if(!check(TokenType.ARROW)){
+        if(!check(Token.Type.ARROW)){
             throw new RuntimeException("Expected '=>' after times expression");
         }
         advance();
