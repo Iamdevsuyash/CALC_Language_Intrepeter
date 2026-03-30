@@ -1,3 +1,5 @@
+package parser;
+
 public class VariableNode implements Expression {
     private String name;
 

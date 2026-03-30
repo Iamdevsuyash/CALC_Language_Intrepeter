@@ -1,3 +1,5 @@
+package parser;
+
 public class NumberNode implements Expression {
     private double value;
 

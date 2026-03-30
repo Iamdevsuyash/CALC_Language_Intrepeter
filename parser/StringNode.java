@@ -1,3 +1,5 @@
+package parser;
+
 public class StringNode implements Expression {
     private String value;
 
