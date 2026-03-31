@@ -6,11 +6,13 @@ import java.util.List;
 public class IfInstruction implements Instruction{
     // Store: the condition expression and a List<Instruction> for the body.
     Expression condition;
-    List<Instruction> body;
+    List<Instruction> ifbody;
+    List<Instruction> elsebody;
 
-    IfInstruction(Expression condition,List<Instruction> body){
+    IfInstruction(Expression condition,List<Instruction> body,List<Instruction> elsebody){
         this.condition = condition;
         this.body = body;
+        this.elsebody = elsebody;
     }
 
     @Override
@@ -24,6 +26,12 @@ public class IfInstruction implements Instruction{
                 i.execute(env);
             }
         }
+        else{
+            for (Instruction i:elsebody){
+                i.execute(env);
+            }
+        }
+
 
     }
 
