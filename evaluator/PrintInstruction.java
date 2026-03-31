@@ -5,7 +5,7 @@ import parser.Expression;
 public class PrintInstruction implements Instruction
 {
     // Store: the expression to print.
-    Expression exp;
+    private final Expression exp;
 
     PrintInstruction(Expression exp){
         this.exp = exp;

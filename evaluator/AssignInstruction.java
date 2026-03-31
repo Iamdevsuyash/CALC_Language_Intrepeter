@@ -3,10 +3,10 @@ import parser.Expression;
 
 public class AssignInstruction implements Instruction {
     // Store: the variable name and the expression whose value will be assigned.
-    private String name;
-    private Expression expression;
+    private final String name;
+    private final Expression expression;
 
-    AssignInstruction(String name,Expression exp){
+    public AssignInstruction(String name,Expression exp){
         this.name = name;
         this.expression= exp;
     }

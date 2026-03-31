@@ -5,13 +5,13 @@ import java.util.List;
 
 public class IfInstruction implements Instruction{
     // Store: the condition expression and a List<Instruction> for the body.
-    Expression condition;
-    List<Instruction> ifbody;
-    List<Instruction> elsebody;
+    private final Expression condition;
+    private final List<Instruction> ifbody;
+    private final List<Instruction> elsebody;
 
     IfInstruction(Expression condition,List<Instruction> body,List<Instruction> elsebody){
         this.condition = condition;
-        this.body = body;
+        this.ifbody = body;
         this.elsebody = elsebody;
     }
 
@@ -22,7 +22,7 @@ public class IfInstruction implements Instruction{
 
         // If the result is true, execute each instruction in the body.
         if (check == true){
-            for (Instruction i:body){
+            for (Instruction i:ifbody){
                 i.execute(env);
             }
         }

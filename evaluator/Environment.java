@@ -26,7 +26,7 @@ public class Environment {
         }
 
         else{
-            throw new RuntimeException("Variable not defined: }"+name);
+            throw new RuntimeException("Variable not defined: "+name);
         }
     }
 

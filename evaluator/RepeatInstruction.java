@@ -3,8 +3,8 @@ import java.util.List;
 
 public class RepeatInstruction implements Instruction {
     // Store: the repeat count and a List<Instruction> for the body.
-    Integer count;
-    List<Instruction> body;
+    private final Integer count;
+    private final List<Instruction> body;
 
     RepeatInstruction(Integer count,List<Instruction> b){
         this.count = count;
