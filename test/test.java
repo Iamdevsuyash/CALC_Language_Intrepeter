@@ -1,8 +1,11 @@
-package evaluator;
+package test;
 
-import parsar.BinaryOpNode;
-import parsar.Expression;
-import parsar.NumberNode;
+import evaluator.Environment;
+import evaluator.Instruction;
+import evaluator.PrintInstruction;
+import parser.BinaryOpNode;
+import parser.Expression;
+import parser.NumberNode;
 
 public class test {
     public static void main(String[] args) {

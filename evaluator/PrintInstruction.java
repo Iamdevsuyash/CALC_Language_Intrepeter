@@ -1,6 +1,6 @@
 package evaluator;
 
-import parsar.Expression;
+import parser.Expression;
 
 public class PrintInstruction implements Instruction
 {

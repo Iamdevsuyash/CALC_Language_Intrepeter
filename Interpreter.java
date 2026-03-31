@@ -1,6 +1,5 @@
 public class Interpreter {
 
-
     public void run(String sourceCode) {
     // Step 1: Pass sourceCode to a new Tokenizer and get the token
 
