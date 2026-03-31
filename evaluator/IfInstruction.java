@@ -26,7 +26,7 @@ public class IfInstruction implements Instruction {
         boolean check = (boolean) result;
 
         // If the result is true, execute each instruction in the body.
-        if (check) {
+        if (check == true) {
             for (Instruction i : ifbody) {
                 i.execute(env);
             }
