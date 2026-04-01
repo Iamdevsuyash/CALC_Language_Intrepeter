@@ -1,12 +1,15 @@
 package parser;
+import evaluator.Environment;
 
+// Represents a numeric literal 
 public class NumberNode implements Expression {
-    private double value;
+    private double value; // stores the numeric value
 
-    public NumberNode(double value) {
+    public NumberNode(double value) { // initializes the number
         this.value = value;
     }
-    public Object evaluate() {
-        return value;
+    @Override
+    public Object evaluate(Environment env) { 
+        return value; // returns as Double when evaluated
     }
 }

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 public class Test {
     public static void main(String[] args) {
         StringNode strNode = new StringNode("Hello, World!");
-        System.out.println(strNode.evaluate()); 
+        System.out.println(strNode.evaluate(env)); 
 
         NumberNode numNode = new NumberNode(42.0);
-        System.out.println(numNode.evaluate());
+        System.out.println(numNode.evaluate(env));
 
         Token token = new Token(Token.Type.IDENTIFIER, "myVar", null, 1, 1);
         System.out.println(token.type()); 
@@ -30,6 +30,6 @@ public class Test {
         Expression left = new StringNode("hello");
         Expression right = new NumberNode(10);
         Expression expr = new BinaryOpNode(left, "+", right);
-        System.out.println(expr.evaluate());
+        System.out.println(expr.evaluate(env));
     }
 }
