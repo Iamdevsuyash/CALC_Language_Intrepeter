@@ -7,7 +7,7 @@ public class PrintInstruction implements Instruction
     // Store: the expression to print.
     private final Expression exp;
 
-    PrintInstruction(Expression exp){
+    public PrintInstruction(Expression exp){
         this.exp = exp;
     }
     @Override

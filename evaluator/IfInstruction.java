@@ -7,12 +7,12 @@ public class IfInstruction implements Instruction {
     // Store: the condition expression and a List<Instruction> for the body.
     private final Expression condition;
     private final List<Instruction> ifbody;
-    private final List<Instruction> elsebody;
+    // private final List<Instruction> elsebody;
 
-    IfInstruction(Expression condition, List<Instruction> body, List<Instruction> elsebody) {
+    public IfInstruction(Expression condition, List<Instruction> body) {
         this.condition = condition;
         this.ifbody = body;
-        this.elsebody = elsebody;
+        // this.elsebody = elsebody;
     }
 
     @Override
@@ -30,13 +30,14 @@ public class IfInstruction implements Instruction {
             for (Instruction i : ifbody) {
                 i.execute(env);
             }
-        } else {
-            if (elsebody != null) {
-                for (Instruction i : elsebody) {
-                    i.execute(env);
-                }
-            }
-        }
+        } 
+        // else {
+        //     if (elsebody != null) {
+        //         for (Instruction i : elsebody) {
+        //             i.execute(env);
+        //         }
+        //     }
+        // }
 
     }
 

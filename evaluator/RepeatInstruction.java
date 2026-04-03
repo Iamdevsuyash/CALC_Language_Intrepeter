@@ -7,7 +7,7 @@ public class RepeatInstruction implements Instruction {
     private final Expression count;
     private final List<Instruction> body;
 
-    RepeatInstruction(Expression count,List<Instruction> b){
+    public RepeatInstruction(Expression count,List<Instruction> b){
         this.count = count;
         this.body = b;
     }

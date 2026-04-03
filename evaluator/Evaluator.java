@@ -6,9 +6,14 @@ public class Evaluator {
     List<Instruction> parsedlist;
     Environment env;
 
-    Evaluator(List<Instruction> parsedlist){
+    public Evaluator(List<Instruction> parsedlist){
         this.parsedlist = parsedlist;
         this.env = new Environment();
     }
 
+    void evaluate(){
+        for (Instruction instruction : parsedlist) {
+            instruction.execute(env);
+        }
+    }
 }
