@@ -11,11 +11,12 @@ public class VariableNode implements Expression {
     @Override
     public Object evaluate(Environment env) { 
         // return null; // Variable evaluation is not implemented yet, returns null for now
-        if(env.contains(name)){
-            return env.get(name); // returns the value of the variable from the environment
-        }
-        else{
-            throw new RuntimeException("Undefined variable: " + name); // throws an exception if the variable is not defined 
-        }
+        // if(env.containsKey(name)){
+        //     return env.get(name); // returns the value of the variable from the environment
+        // }
+        // else{
+        //     throw new RuntimeException("Undefined variable: " + name); // throws an exception if the variable is not defined 
+        // }
+        return env.get(name);
     }
 }
