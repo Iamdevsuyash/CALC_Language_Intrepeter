@@ -160,16 +160,27 @@ public class Parser{
             throw new RuntimeException("Expected '=>' after condition");
         }
         advance(); // consume '=>'
-        List<Instruction> body = new ArrayList<>();
-        while(check(Token.Type.NEWLINE)){ // skip newlines after if body
-            advance();
+        if(!check(Token.Type.NEWLINE)){ 
+            throw new RuntimeException("Expected newline after =>");
         }
-        while(!isEnd() && !check(Token.Type.IF) && !check(Token.Type.REPEAT)){
+        advance();
+        if(!check(Token.Type.INDENT)){ // expecting indented block after if condition
+            throw new RuntimeException("Expected INDENT");
+        }
+        advance();
+        List<Instruction> body = new ArrayList<>();
+        while(!check(Token.Type.DEDENT) && !isEnd()){ // read until DEDENT or end of file
             if(check(Token.Type.NEWLINE)){
                 advance();
                 continue;
             }
             body.add(parseInstruction());
+        }
+        if(check(Token.Type.DEDENT)){
+            advance(); // consume DEDENT
+        }
+        else{
+            throw new RuntimeException("Expected DEDENT at end of if block");
         }
         return new IfInstruction(condition, body);
     }
@@ -181,16 +192,27 @@ public class Parser{
             throw new RuntimeException("Expected '=>' after times expression");
         }
         advance(); // consume '=>'
-        List<Instruction> body = new ArrayList<>();
-        while(check(Token.Type.NEWLINE)){ // skip newlines after repeat body
-            advance();
+        if(!check(Token.Type.NEWLINE)){
+            throw new RuntimeException("Expected newline after =>");
         }
-        while(!isEnd() && !check(Token.Type.IF) && !check(Token.Type.REPEAT)){
+        advance();
+        if(!check(Token.Type.INDENT)){
+            throw new RuntimeException("Expected INDENT");
+        }
+        advance();
+        List<Instruction> body = new ArrayList<>();
+        while(!check(Token.Type.DEDENT) && !isEnd()){
             if(check(Token.Type.NEWLINE)){
                 advance();
                 continue;
             }
             body.add(parseInstruction());
+        }
+        if(check(Token.Type.DEDENT)){
+            advance(); // consume DEDENT
+        }
+        else{
+            throw new RuntimeException("Expected DEDENT at end");
         }
         return new RepeatInstruction(times, body);
     }
