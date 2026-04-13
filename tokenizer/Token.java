@@ -21,11 +21,16 @@ public record Token(Type type, String lexeme, Object literal, int line, int colu
 
         // Structural
         LPAREN, RPAREN, COLON,
-        NEWLINE, EOF
+        NEWLINE, INDENT, DEDENT, EOF
     }
 
     @Override
     public String toString() {
         return "Token{" + type + " '" + lexeme + "' at " + line + ":" + column + "}";
+    }
+
+    public static void main(String[] args) {
+        Token token = new Token(Type.IDENTIFIER, "x", null, 1, 5);
+        System.out.println(token.line);
     }
 }
