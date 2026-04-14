@@ -13,7 +13,7 @@ public class RepeatInstruction implements Instruction {
     }
     @Override
     public void execute(Environment env) {
-        int times = (int) count.evaluate(env);
+        double times = (double) count.evaluate(env);
 
         // Execute all body instructions, repeated count times.
         for (int i = 0; i< times;i++){

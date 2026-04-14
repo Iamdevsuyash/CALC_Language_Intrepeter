@@ -11,7 +11,7 @@ public class Evaluator {
         this.env = new Environment();
     }
 
-    void evaluate(){
+    public void evaluate(){
         for (Instruction instruction : parsedlist) {
             instruction.execute(env);
         }
