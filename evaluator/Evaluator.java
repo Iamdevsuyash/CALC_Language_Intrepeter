@@ -3,8 +3,8 @@ package evaluator;
 import java.util.List;
 
 public class Evaluator {
-    List<Instruction> parsedlist;
-    Environment env;
+    private final List<Instruction> parsedlist;
+    private final Environment env;
 
     public Evaluator(List<Instruction> parsedlist){
         this.parsedlist = parsedlist;
