@@ -58,7 +58,7 @@ public class Parser{
         List<Instruction> instructions = new ArrayList<>();
         while(!isEnd()){
             // if(check(Token.Type.NEWLINE)){ // skip empty lines
-            while(check(Token.Type.NEWLINE)){ // skip all consecutive newlines
+            while(check(Token.Type.NEWLINE) || check(Token.Type.INDENT) || check(Token.Type.DEDENT)){ // skip all consecutive newlines
                 advance();
             }
             if(isEnd()){ // if end after skipping newlines, break
