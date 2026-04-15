@@ -27,7 +27,8 @@ public class Interpreter {
 }
 
 public static void main(String[] args) throws IOException{
-    try (BufferedReader br = new BufferedReader(new FileReader("test.calc"))) {
+    String path = args[0];
+    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
     StringBuilder s = new StringBuilder();
     int data;
     while ((data = br.read()) != -1) {
