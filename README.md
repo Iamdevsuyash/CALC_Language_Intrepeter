@@ -59,7 +59,7 @@ This program:
 Compile the project with `javac` from the repository root:
 
 ```bash
-javac Interpreter.java tokenizer/Tokenizer.java tokenizer/Token.java parser/*.java evaluator/*.java
+javac Interpreter.java 
 ```
 
 Run the interpreter with a CALC source file:
