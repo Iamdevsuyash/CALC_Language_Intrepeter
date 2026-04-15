@@ -8,7 +8,7 @@ import evaluator.Evaluator;
 import evaluator.Instruction;
 import parser.Parser;
 
-public class TestTokenizer {
+public class TestParser {
     public static void main(String[] args) {
 
         String input = """
@@ -22,17 +22,14 @@ public class TestTokenizer {
         try {
             Tokenizer tokenizer = new Tokenizer(input);
             List<Token> tokens = tokenizer.tokenize();
-            System.out.println("TOKENS: " + tokens);
-            for (Token token : tokens) {
-                System.out.println(token);
-            }
             Parser parser = new Parser(tokens);
             List<Instruction> parsed = parser.parse();
-            Evaluator evaluator = new Evaluator(parsed);
-            evaluator.evaluate();
-
+            for(Instruction i: parsed){
+                System.out.println(i);
+            }
+            
         } catch (RuntimeException e) {
-            System.out.println("Tokenization Error:");
+            System.out.println("Parsing Error:");
             System.out.println(e.getMessage());
         }
     }

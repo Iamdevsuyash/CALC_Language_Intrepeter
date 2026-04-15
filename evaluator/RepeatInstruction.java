@@ -11,9 +11,10 @@ public class RepeatInstruction implements Instruction {
         this.count = count;
         this.body = b;
     }
+
     @Override
     public void execute(Environment env) {
-        int times = (int) count.evaluate(env);
+        double times = (double) count.evaluate(env);
 
         // Execute all body instructions, repeated count times.
         for (int i = 0; i< times;i++){
@@ -22,4 +23,5 @@ public class RepeatInstruction implements Instruction {
             }
         }
     }
+    
 }
