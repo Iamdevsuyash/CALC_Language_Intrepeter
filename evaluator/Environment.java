@@ -7,7 +7,11 @@ public class Environment {
 
     // Use a Map<String, Object> to store variable names and their values.
 
-    Map<String,Object> env = new HashMap<>();
+    private final Map<String,Object> env;
+
+    Environment(){
+        env = new HashMap<>();
+    }
 
     public void set(String name, Object value) {
 
