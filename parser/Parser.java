@@ -125,9 +125,14 @@ public class Parser {
         return left;
     }
 
-    // Parses number, string, variable
-    private Expression parsePrimary() {
-        if (check(Token.Type.NUMBER)) {
+    // Parses number, string, variable, minus
+    private Expression parsePrimary(){
+        if(check(Token.Type.MINUS)){
+            advance();
+            Expression expr = parsePrimary(); // parse the expression after minus
+            return new BinaryOpNode(new NumberNode(0.0), "-", expr); // convert - expr to 0 - expr for easy ealuation
+        }
+        if(check(Token.Type.NUMBER)){
             Token t = advance();
             return new NumberNode((Double) t.literal());
         } else if (check(Token.Type.STRING)) {
