@@ -127,7 +127,7 @@ public class Parser{
         return left;
     }
 
-    // Parses number, string, variable
+    // Parses number, string, variable, minus
     private Expression parsePrimary(){
         if(check(Token.Type.NUMBER)){
             Token t = advance();
@@ -140,6 +140,11 @@ public class Parser{
         else if(check(Token.Type.IDENTIFIER)){
             Token t = advance();
             return new VariableNode(t.lexeme());
+        }
+        if(check(Token.Type.MINUS)){
+            advance();
+            Expression expr = parsePrimary(); // parse the expression after minus
+            return new BinaryOpNode(new NumberNode(0.0), "-", expr); // convert - expr to 0 - expr for easy ealuation
         }
         else{
             throw new RuntimeException("Unexpected token: " + peek().lexeme());

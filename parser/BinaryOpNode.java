@@ -28,7 +28,12 @@ public class BinaryOpNode implements Expression {
             }
         // For Subtraction
         } else if (operator.equals("-")) {
-            return ((Double) leftval) - ((Double) rightval);
+            try{
+                return ((Double) leftval) - ((Double) rightval);
+            }catch(ClassCastException e){
+                throw new RuntimeException("Subtraction requires numbers"); // throws exception for non-numeric values subtraction
+            }
+            
         // For Multiplication
         } else if (operator.equals("*")) {
             return ((Double) leftval) * ((Double) rightval);
