@@ -36,6 +36,7 @@ public static void main(String[] args) throws IOException{
         char c = (char) data;
         s.append(c);
     }
+    
     Interpreter interpreter = new Interpreter();
 
     interpreter.run(s.toString());

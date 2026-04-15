@@ -9,7 +9,7 @@ public class Environment {
 
     private final Map<String,Object> env;
 
-    Environment(){
+    public Environment(){
         env = new HashMap<>();
     }
 
