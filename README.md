@@ -1,6 +1,6 @@
 # CALC Programming Language Interpreter
 
-A simple interpreter for a custom CALC programming language. This project implements a tokenizer, parser, and evaluator for a small language with variables, arithmetic, printing, conditionals, and loops.
+A custom interpreted programming language implemented in Java featuring lexical analysis, recursive descent parsing, AST evaluation, indentation-aware blocks, and runtime execution.
 
 ## Project Overview
 
